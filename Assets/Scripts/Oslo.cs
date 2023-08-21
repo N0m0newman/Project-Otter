@@ -6,7 +6,6 @@ using UnityEngine.XR;
 public class Oslo : Entity
 {
     [SerializeField] float movementSpeed = 2f;
-    private Rigidbody2D rigidbody;
     private Vector2 movementDirection;
     private bool isUnderwater = true;
     public bool isFast = false;
@@ -46,9 +45,11 @@ public class Oslo : Entity
 
     private void FixedUpdate()
     {
-        if (movementDirection != null)
+        if (movementDirection != null && rigidbody != null)
         {
             rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
         } 
     }
+
+     
 }
