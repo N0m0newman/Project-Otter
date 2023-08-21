@@ -6,9 +6,9 @@ public class Entity : MonoBehaviour
 {
     protected string Name;
     protected bool isDead;
-    protected int Health;
-    protected int MaxHealth;
-    protected float Oxygen;
+    [SerializeField] protected int Health;
+    [SerializeField] protected int MaxHealth;
+    [SerializeField] protected float Oxygen;
     protected float MaxOxygen;
     // Start is called before the first frame update
     void Start()
