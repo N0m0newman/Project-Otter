@@ -22,6 +22,7 @@ public class Oslo : Entity
         Oxygen = 1f;
         MaxOxygen = 1f;
         rigidbody = GetComponent<Rigidbody2D>();
+        om = GetComponent<OxygenManager>();
         instance = this;
     }
 
