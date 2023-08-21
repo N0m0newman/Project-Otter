@@ -8,6 +8,8 @@ public class Oslo : Entity
     [SerializeField] float movementSpeed = 2f;
     private Rigidbody2D rigidbody;
     private Vector2 movementDirection;
+    public static Oslo instance;
+    public bool interacting = false;
     void Start()
     {
         name = "Oslo";
@@ -16,6 +18,7 @@ public class Oslo : Entity
         Oxygen = 1f;
         MaxOxygen = 1f;
         rigidbody = GetComponent<Rigidbody2D>();
+        instance = this;
     }
 
     // Update is called once per frame

@@ -17,7 +17,6 @@ public class FadeObject : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(fadeState);
         switch (fadeState)
         {
             case states.FADEOUT:
