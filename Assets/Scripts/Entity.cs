@@ -25,13 +25,11 @@ public class Entity : MonoBehaviour
     {
         
     }
-    public bool ReduceOxygen()
+
+    public float ReduceOxygen(float oxygen)
     {
-        return false;
-    }
-    public bool ReduceOxygen(float oxygen)
-    {
-        return false;
+        Oxygen -= oxygen;
+        return Oxygen;
     }
     public bool Damage()
     {

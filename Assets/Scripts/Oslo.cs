@@ -8,6 +8,11 @@ public class Oslo : Entity
     [SerializeField] float movementSpeed = 2f;
     private Rigidbody2D rigidbody;
     private Vector2 movementDirection;
+    private bool isUnderwater = true;
+    public bool isFast = false;
+
+    OxygenManager om;
+
     public static Oslo instance;
     public bool interacting = false;
     void Start()
@@ -24,7 +29,19 @@ public class Oslo : Entity
     // Update is called once per frame
     void Update()
     {
-        movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if(isUnderwater)
+        {
+            movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        } else
+        {
+            if(Input.GetAxis("Vertical") > 0)
+            {
+                movementDirection = new Vector2(Input.GetAxis("Horizontal"), 0);
+            } else
+            {
+                movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            }
+        }
     }
 
     private void FixedUpdate()
