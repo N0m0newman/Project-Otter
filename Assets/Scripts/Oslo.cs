@@ -29,10 +29,6 @@ public class Oslo : Entity
         if (movementDirection != null)
         {
             rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
-            Debug.Log(movementDirection);
-        } else
-        {
-            Debug.Log("Not Moving");
-        }
+        } 
     }
 }
