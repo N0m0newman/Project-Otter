@@ -46,7 +46,7 @@ public class Oslo : Entity
 
     private void FixedUpdate()
     {
-        if (movementDirection != null && rigidbody != null)
+        if (movementDirection != null && rigidbody != null && !interacting)
         {
             rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
         } 

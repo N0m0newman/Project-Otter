@@ -17,24 +17,71 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     List<Conversation> conversations;
     [SerializeField]
-    GameObject CharacterName;
+    GameObject DialogueBox;
     [SerializeField]
-    GameObject DialogueBody;
+    GameObject DialogueBody, CharacterName;
     TextMeshProUGUI DBody, CharName;
-
+    public bool DialogueActive = false;
+    Oslo oslo;
+    private int index;
+    Conversation activeConversation;
     private void Start()
     {
+        oslo = Oslo.instance;
         if(Directory.Exists(pathtofiles))
         {
             DBody = DialogueBody.GetComponent<TextMeshProUGUI>();
             CharName = CharacterName.GetComponent<TextMeshProUGUI>();
             conversations = new List<Conversation>();
-            
-            Conversation convo = conversations[0];
-            DialogueLine dialogue = convo.GetDialogueLine(0);
-            CharName.text = dialogue.name;
-            DBody.text = dialogue.line;
+            generateConversationsFromFile();
+            StartDialogue("FrogDialogue.txt");
         }
+    }
+
+    private void Update()
+    {
+        if(DialogueActive)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                if(DBody.text == activeConversation.GetDialogueLine(index).line) 
+                {
+                    NextLine();
+                } else
+                {
+                    StopAllCoroutines();
+                    DBody.text = activeConversation.GetDialogueLine(index).line;
+                }
+            }
+        }
+    }
+
+    public void StartDialogue(string name)
+    {
+        DialogueBox.SetActive(true);
+        DialogueActive = true;
+        index = 0;
+        activeConversation = GetConversationFromName(name);
+        if(activeConversation == null)
+        {
+            Debug.LogWarning("Missing Conversation Data");
+            return;
+        }
+        StartCoroutine(TypeLineSlow(activeConversation.GetDialogueLine(0)));
+        CharName.text = activeConversation.GetDialogueLine(0).name;
+    }
+
+    public void EndDialogue()
+    {
+        index = 0;
+        DialogueBox.SetActive(false);
+        DialogueActive=false;
+    }
+
+    public void ForceStopDialogue()
+    {
+        StopAllCoroutines();
+        EndDialogue();
     }
 
     public void generateConversationsFromFile()
@@ -44,7 +91,8 @@ public class DialogueManager : MonoBehaviour
         {
             StreamReader reader1 = new StreamReader(file);
             string[] lines = reader1.ReadToEnd().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-            Conversation conversation = new Conversation();
+            string n = file.Replace(pathtofiles + "\\", "");
+            Conversation conversation = new Conversation(n);
             foreach (string line in lines)
             {
                 RegexOptions options = RegexOptions.Multiline;
@@ -55,13 +103,54 @@ public class DialogueManager : MonoBehaviour
                 name = name.Replace("]", string.Empty);
                 body = line;
                 body = body.Replace(match.Value + " ", string.Empty);
-                DialogueLine dline = new DialogueLine(name, body, null, 2f);
+                DialogueLine dline = new DialogueLine(name, body, null, .06f);
                 conversation.AddComponent(dline);
             }
             conversations.Add(conversation);
         }
     }
 
+    IEnumerator TypeLineSlow(DialogueLine Dialogue)
+    {
+        //Type each character out 1 by 1 for dialogue effectness.........
+        foreach (char c in Dialogue.line.ToCharArray())
+        {
+            DBody.text += c;
+            yield return new WaitForSeconds(Dialogue.revealTime);
+        }
+    }
 
+    IEnumerator TypeLineSlow(string Dialogue)
+    {
+        //Type each character out 1 by 1 for dialogue effectness.........
+        foreach (char c in Dialogue.ToCharArray())
+        {
+            DBody.text += c;
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    void NextLine()
+    {
+        if(index < activeConversation.GetFullConversation().Count -1 )
+        {
+            index++;
+            DBody.text = String.Empty;
+            StartCoroutine(TypeLineSlow(activeConversation.GetDialogueLine(index)));
+            CharName.text = activeConversation.GetDialogueLine(index).name;
+        } else
+        {
+            EndDialogue();
+        }
+    }
+
+    private Conversation GetConversationFromName(string name)
+    {
+        foreach(Conversation conversation in conversations) 
+        {
+            if (conversation.ConversationName == name) return conversation;
+        }
+        return null;
+    }
 
 }

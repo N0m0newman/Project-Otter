@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Conversation
 {
+    public string ConversationName;
     List<DialogueLine> dialogueComponenets;
-    public Conversation()
+    public Conversation(string name)
     {
         dialogueComponenets = new List<DialogueLine>();
+        ConversationName = name; 
     }
 
     public void AddComponent(DialogueLine line)
@@ -24,4 +27,5 @@ public class Conversation
     {
         return dialogueComponenets[index];
     }
+
 }
