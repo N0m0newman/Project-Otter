@@ -64,7 +64,7 @@ public class DialogueManager : MonoBehaviour
         activeConversation = GetConversationFromName(name);
         if(activeConversation == null)
         {
-            Debug.LogWarning("Missing Conversation Data");
+            Debug.LogError("Missing Conversation Data");
             return;
         }
         StartCoroutine(TypeLineSlow(activeConversation.GetDialogueLine(0)));
