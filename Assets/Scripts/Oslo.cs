@@ -14,6 +14,9 @@ public class Oslo : Entity
     public Interactable interactable;
     public bool CouldInteract = false;
     public bool interacting = false;
+    public SpriteRenderer reactionSprite;
+    [SerializeField]
+    public Sprite[] reactionSprites;
     void Start()
     {
         name = "Oslo";
@@ -53,6 +56,16 @@ public class Oslo : Entity
         {
             rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
         } 
+    }
+
+    public void React(int index)
+    {
+        
+    }
+
+    public void ClearReaction()
+    {
+        reactionSprite.sprite = null;
     }
 
     public void OsloStartInteraction()

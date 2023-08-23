@@ -120,6 +120,7 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeLineSlow(DialogueLine Dialogue)
     {
         //Type each character out 1 by 1 for dialogue effectness.........
+        if (Dialogue.name == "OSLO") oslo.React();
         foreach (char c in Dialogue.line.ToCharArray())
         {
             DBody.text += c;

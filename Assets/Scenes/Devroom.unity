@@ -733,6 +733,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 1410782328394532056, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
+      propertyPath: reactionSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1410782328394532057, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -832,6 +836,10 @@ PrefabInstance:
     - target: {fileID: 1410782328394532063, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
       propertyPath: m_GravityScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5988827626164403334, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
