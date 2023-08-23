@@ -13,15 +13,16 @@ public enum ConversationState
 
 public class NPC : Interactable
 {
-    protected ConversationState conversationState;
-    [SerializeField]
-    protected BoxCollider2D boxCollider;
+    protected ConversationState conversationState;    
     protected string DialogueFileStarter;
     public DialogueManager dm;
+
+    public bool hasCompletedPuzzle = false;
+    public bool hasCompletedCollectible = false;
+
     public virtual void Start()
     {
-        conversationState = ConversationState.FIRSTGREETING;
-        dm = DialogueManager.instance;
+        conversationState = ConversationState.FIRSTGREETING;       
     }
 
     public void UpgradeConversation()
@@ -32,19 +33,34 @@ public class NPC : Interactable
                 conversationState = ConversationState.RETURNGREETING1;
                 break;
             case ConversationState.RETURNGREETING1:
-                conversationState = ConversationState.COMPLETEDPUZZLE;
+                if(hasCompletedPuzzle) conversationState = ConversationState.COMPLETEDPUZZLE;
                 break;
             case ConversationState.RETURNGREETING2:
                 //last conversation piece this doesnt lead anywhere, deadend looped conversation.
                 break;
+                //trigered when they have completed the puzzle
             case ConversationState.COMPLETEDPUZZLE:
-                conversationState = ConversationState.RETURNGREETING2;
+                if(hasCompletedPuzzle) conversationState = ConversationState.RETURNGREETING2;
                 break;
                 //only triggered when they have found the collectable
             case ConversationState.COMPLETEDCOLLECTIBLE:
                 conversationState = ConversationState.RETURNGREETING2;
                 break;
         }
+    }
+    public void UpgradeConversation(ConversationState conversationState)
+    {
+        this.conversationState = conversationState;
+    }
+
+    public ConversationState GetConversationState()
+    {
+        return conversationState;
+    }
+
+    public virtual void FinishedConversation()
+    {
+        UpgradeConversation();
     }
 
 }

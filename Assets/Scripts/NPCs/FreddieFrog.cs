@@ -14,7 +14,7 @@ public class FreddieFrog : NPC
     public override void InteractObject()
     {
         base.InteractObject();
-
+        dm.StartDialogue(DialogueFileStarter, conversationState, this);
     }
 
     void Update()

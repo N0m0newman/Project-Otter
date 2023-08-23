@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-
 public class FadeObject : MonoBehaviour
 {
     enum states
@@ -12,7 +11,7 @@ public class FadeObject : MonoBehaviour
     [SerializeField] 
     states fadeState = states.IDLE;
     [SerializeField] 
-    private float fadeOutTime;
+    private float fadeOutTime = 2;
 
     private void Update()
     {

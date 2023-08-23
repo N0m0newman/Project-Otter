@@ -6,57 +6,50 @@ using UnityEngine;
 public class Interactable : Entity
 {
     [SerializeField]
-    private new BoxCollider2D collider;
-    [SerializeField] 
+    private Collider2D interactionZone;
+    [SerializeField]
     private GameObject interactableTextObject;
+    [SerializeField]
     private FadeObject interactableFader;
     [SerializeField]
     private bool interactableObject = false;
-    private Oslo oslo;
+    protected Oslo oslo;
 
     private void Start()
     {
-        if(interactableObject)
+        if (interactableObject && interactionZone != null)
         {
             Debug.Log("InteractableGenerationCreated");
-            collider = GetComponent<BoxCollider2D>();
-            interactableFader = interactableTextObject.GetComponent<FadeObject>();
             oslo = Oslo.instance;
         }
     }
 
-    public virtual void InteractObject() {}
+    public virtual void InteractObject() { }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (interactableObject)
+        if (interactableObject && interactionZone != null)
         {
-            if (collider != null)
+            if (collision.tag != "Oslo") return;
+            if (interactableTextObject != null && interactableFader != null)
             {
-                if (collision.tag != "Oslo") return;
-                if (interactableTextObject != null)
-                {
-                    interactableFader.FadeInObject();
-                    Oslo.instance.CouldInteract = true;
-                    Oslo.instance.interactable = this;
-                }
+                interactableFader.FadeInObject();
+                Oslo.instance.CouldInteract = true;
+                Oslo.instance.interactable = this;
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (interactableObject)
+        if (interactableObject && interactionZone != null)
         {
-            if (collider != null)
+            if (collision.tag != "Oslo") return;
+            if (interactableTextObject != null && interactableFader != null)
             {
-                if (collision.tag != "Oslo") return;
-                if (interactableTextObject != null)
-                {
-                    interactableFader.FadeOutObject();
-                    Oslo.instance.CouldInteract = false;
-                    Oslo.instance.interactable = null;
-                }
+                interactableFader.FadeOutObject();
+                Oslo.instance.CouldInteract = false;
+                Oslo.instance.interactable = null;
             }
         }
     }

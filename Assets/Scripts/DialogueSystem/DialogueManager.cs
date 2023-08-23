@@ -69,8 +69,10 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("Missing Conversation Data");
             return;
         }
+        
         StartCoroutine(TypeLineSlow(activeConversation.GetDialogueLine(0)));
         CharName.text = activeConversation.GetDialogueLine(0).name;
+        activeNPC = npc;
     }
 
     public void EndDialogue()
@@ -79,6 +81,8 @@ public class DialogueManager : MonoBehaviour
         DialogueBox.SetActive(false);
         DialogueActive = false;
         oslo.FinishInteraction(true);
+        activeNPC.FinishedConversation();
+        activeNPC = null;
     }
 
     public void ForceStopDialogue()

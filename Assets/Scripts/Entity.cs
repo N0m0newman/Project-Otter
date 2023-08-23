@@ -12,7 +12,6 @@ public class Entity : MonoBehaviour
 
     protected new Rigidbody2D rigidbody;
 
-
     [SerializeField]
     protected Characters character;
 
