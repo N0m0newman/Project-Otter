@@ -17,6 +17,8 @@ public class Oslo : Entity
     public SpriteRenderer reactionSprite;
     [SerializeField]
     public Sprite[] reactionSprites;
+    [SerializeField]
+    private AudioClip[] reactionSounds;
     void Start()
     {
         name = "Oslo";

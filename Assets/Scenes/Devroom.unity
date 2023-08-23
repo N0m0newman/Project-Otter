@@ -734,6 +734,10 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1410782328394532056, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
+      propertyPath: reactionSounds.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1410782328394532056, guid: 06c1d62809462b84b95837b08e95d79f, type: 3}
       propertyPath: reactionSprites.Array.size
       value: 2
       objectReference: {fileID: 0}
