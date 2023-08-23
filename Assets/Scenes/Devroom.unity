@@ -273,10 +273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Oh, before you go, I\u2019m hoping you could do me a favour. *ribbit*.
-    I\u2019ve been saving some snacks for a while but the storm swept them all away
-    and now I\u2019m kind of hungry. If you happen to come across a jar of flies
-    and return them to me, I\u2019ll make it worth your while. *ribbit*. "
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2d4ecda6fa7de3e45933e83ea937ca91, type: 2}
   m_sharedMaterial: {fileID: -4540134968948422799, guid: 2d4ecda6fa7de3e45933e83ea937ca91, type: 2}
