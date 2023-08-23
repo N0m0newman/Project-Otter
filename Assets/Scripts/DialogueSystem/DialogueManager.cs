@@ -34,7 +34,7 @@ public class DialogueManager : MonoBehaviour
             CharName = CharacterName.GetComponent<TextMeshProUGUI>();
             conversations = new List<Conversation>();
             generateConversationsFromFile();
-            StartDialogue("FrogDialogue.txt");
+            StartDialogue("FrogDialogueFirstGreeting.txt");
         }
     }
 
