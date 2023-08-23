@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public class Interactable : Entity
 {
-    private BoxCollider2D collider;
-    [SerializeField] private GameObject interactableTextObject;
+    [SerializeField]
+    private Collider2D interactionZone;
+    [SerializeField]
+    private GameObject interactableTextObject;
+    [SerializeField]
     private FadeObject interactableFader;
-    [SerializeField] private bool canInteract = false;
-    private Oslo oslo;
+    [SerializeField]
+    private bool interactableObject = false;
+    protected Oslo oslo;
 
     private void Start()
     {
-        collider = GetComponent<BoxCollider2D>();
-        interactableFader = interactableTextObject.GetComponent<FadeObject>();
-        oslo = Oslo.instance;
-    }
-
-    private void Update()
-    {
-        if(canInteract && !oslo.interacting)
+        if (interactableObject && interactionZone != null)
         {
-            InteractObject();
+            Debug.Log("InteractableGenerationCreated");
+            oslo = Oslo.instance;
         }
     }
 
@@ -30,26 +28,28 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collider != null)
+        if (interactableObject && interactionZone != null)
         {
             if (collision.tag != "Oslo") return;
-            if(interactableTextObject != null)
+            if (interactableTextObject != null && interactableFader != null)
             {
                 interactableFader.FadeInObject();
-                canInteract = true;
+                Oslo.instance.CouldInteract = true;
+                Oslo.instance.interactable = this;
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collider != null)
+        if (interactableObject && interactionZone != null)
         {
             if (collision.tag != "Oslo") return;
-            if(interactableTextObject != null)
+            if (interactableTextObject != null && interactableFader != null)
             {
                 interactableFader.FadeOutObject();
-                canInteract = false;
+                Oslo.instance.CouldInteract = false;
+                Oslo.instance.interactable = null;
             }
         }
     }

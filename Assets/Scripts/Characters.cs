@@ -1,5 +1,10 @@
 public enum Characters
 {
     OSLO,
-    FROG
+    FREDDIE,
+    ABIGAIL,
+    CALLUM,
+    JAY,
+    NOREEN,
+    OCTAVIA
 }

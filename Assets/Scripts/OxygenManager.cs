@@ -9,6 +9,10 @@ public class OxygenManager : MonoBehaviour
     [SerializeField]
     private float OxygenLength = 2f;
 
+    [SerializeField] 
+    private float Oxygen;
+    [SerializeField]
+    private float MaxOxygen;
 
     public bool TakeOxygen = false;
     // Update is called once per frame
@@ -24,14 +28,27 @@ public class OxygenManager : MonoBehaviour
                 if(Oslo.instance.isFast)
                 {
                     timeRemaing = OxygenLength;
-                    Oslo.instance.ReduceOxygen(0.02f);
+                    if(ReduceOxygen(0.02f) <= 0)
+                    {
+                        Oslo.instance.Damage();
+                    } 
+                    
                 } else
                 {
                     timeRemaing = OxygenLength;
-                    Debug.Log(Oslo.instance.ReduceOxygen(0.01f));
+                    if(ReduceOxygen(0.01f) <= 0)
+                    {
+                        Oslo.instance.Damage();
+                    }
                 }
                 
             }
         }
+    }
+
+    public float ReduceOxygen(float oxygen)
+    {
+        Oxygen -= oxygen;
+        return Oxygen;
     }
 }

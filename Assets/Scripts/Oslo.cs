@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class Oslo : Entity
 {
@@ -9,30 +6,32 @@ public class Oslo : Entity
     private Vector2 movementDirection;
     private bool isUnderwater = true;
     public bool isFast = false;
+    public bool canMove = true;
 
-    OxygenManager om;
+    public OxygenManager om;
 
     public static Oslo instance;
+    public Interactable interactable;
+    public bool CouldInteract = false;
     public bool interacting = false;
     void Start()
     {
         name = "Oslo";
         Health = 2;
         MaxHealth = 2;
-        Oxygen = 1f;
-        MaxOxygen = 1f;
         rigidbody = GetComponent<Rigidbody2D>();
         om = GetComponent<OxygenManager>();
+        character = Characters.OSLO;
         instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isUnderwater)
         {
             movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        } else
+        } 
+        else
         {
             if(Input.GetAxis("Vertical") > 0)
             {
@@ -42,15 +41,38 @@ public class Oslo : Entity
                 movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
         }
+        if(Input.GetButtonDown("Interact") && CouldInteract && interactable != null)
+        {
+            OsloStartInteraction();
+        }
     }
 
     private void FixedUpdate()
     {
-        if (movementDirection != null && rigidbody != null && !interacting)
+        if (movementDirection != null && rigidbody != null && canMove)
         {
             rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
         } 
     }
 
+    public void OsloStartInteraction()
+    {
+        om.TakeOxygen = false;
+        canTakeDamage = false;
+        canMove = false;
+        interacting = true;
+        CouldInteract = false;
+        if (interactable != null) interactable.InteractObject(); 
+    }
+
+    public void FinishInteraction(bool reinteractable)
+    {
+        om.TakeOxygen = true;
+        canTakeDamage = true;
+        canMove = true;
+        interactable = null;
+        interacting = false;
+        CouldInteract = reinteractable;
+    }
      
 }
