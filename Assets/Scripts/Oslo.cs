@@ -13,26 +13,27 @@ public class Oslo : Entity
     OxygenManager om;
 
     public static Oslo instance;
+    public Interactable interactable;
+    public bool CouldInteract = false;
     public bool interacting = false;
     void Start()
     {
         name = "Oslo";
         Health = 2;
         MaxHealth = 2;
-        Oxygen = 1f;
-        MaxOxygen = 1f;
         rigidbody = GetComponent<Rigidbody2D>();
         om = GetComponent<OxygenManager>();
+        character = Characters.OSLO;
         instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isUnderwater)
         {
             movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        } else
+        } 
+        else
         {
             if(Input.GetAxis("Vertical") > 0)
             {
@@ -42,15 +43,27 @@ public class Oslo : Entity
                 movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
         }
+        if(Input.GetButtonDown("Interact") && CouldInteract)
+        {
+            interacting = true;
+            CouldInteract = false;
+            interactable.InteractObject();
+        }
     }
 
     private void FixedUpdate()
     {
-        if (movementDirection != null && rigidbody != null && !interacting)
+        if (movementDirection != null && rigidbody != null)
         {
             rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
         } 
     }
 
+    public void FinishInteraction(bool reinteractable)
+    {
+        interactable = null;
+        interacting = false;
+        CouldInteract = reinteractable;
+    }
      
 }

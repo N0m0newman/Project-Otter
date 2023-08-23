@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FadeObject : MonoBehaviour
@@ -12,8 +9,10 @@ public class FadeObject : MonoBehaviour
         FADEIN,
         IDLE
     }
-    [SerializeField] states fadeState = states.IDLE;
-    [SerializeField] private float fadeOutTime;
+    [SerializeField] 
+    states fadeState = states.IDLE;
+    [SerializeField] 
+    private float fadeOutTime;
 
     private void Update()
     {
@@ -50,9 +49,20 @@ public class FadeObject : MonoBehaviour
     {
         fadeState = states.FADEOUT;
     }
+    public void FadeOutObject(float fadeTime)
+    {
+        fadeState = states.FADEOUT;
+        fadeOutTime = fadeTime;
+    }
 
     public void FadeInObject()
     {
         fadeState = states.FADEIN;
+    }
+
+    public void FadeInObject(float fadeTime)
+    {
+        fadeState = states.FADEIN;
+        fadeOutTime = fadeTime;
     }
 }

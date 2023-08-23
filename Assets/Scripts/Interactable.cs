@@ -3,53 +3,60 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public class Interactable : Entity
 {
-    private BoxCollider2D collider;
-    [SerializeField] private GameObject interactableTextObject;
+    [SerializeField]
+    private new BoxCollider2D collider;
+    [SerializeField] 
+    private GameObject interactableTextObject;
     private FadeObject interactableFader;
-    [SerializeField] private bool canInteract = false;
+    [SerializeField]
+    private bool interactableObject = false;
     private Oslo oslo;
 
     private void Start()
     {
-        collider = GetComponent<BoxCollider2D>();
-        interactableFader = interactableTextObject.GetComponent<FadeObject>();
-        oslo = Oslo.instance;
-    }
-
-    private void Update()
-    {
-        if(canInteract && !oslo.interacting)
+        if(interactableObject)
         {
-            InteractObject();
+            Debug.Log("InteractableGenerationCreated");
+            collider = GetComponent<BoxCollider2D>();
+            interactableFader = interactableTextObject.GetComponent<FadeObject>();
+            oslo = Oslo.instance;
         }
     }
 
-    public virtual void InteractObject() { }
+    public virtual void InteractObject() {}
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collider != null)
+        if (interactableObject)
         {
-            if (collision.tag != "Oslo") return;
-            if(interactableTextObject != null)
+            if (collider != null)
             {
-                interactableFader.FadeInObject();
-                canInteract = true;
+                if (collision.tag != "Oslo") return;
+                if (interactableTextObject != null)
+                {
+                    interactableFader.FadeInObject();
+                    Oslo.instance.CouldInteract = true;
+                    Oslo.instance.interactable = this;
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collider != null)
+        if (interactableObject)
         {
-            if (collision.tag != "Oslo") return;
-            if(interactableTextObject != null)
+            if (collider != null)
             {
-                interactableFader.FadeOutObject();
-                canInteract = false;
+                if (collision.tag != "Oslo") return;
+                if (interactableTextObject != null)
+                {
+                    interactableFader.FadeOutObject();
+                    Oslo.instance.CouldInteract = false;
+                    Oslo.instance.interactable = null;
+                }
             }
         }
     }

@@ -8,24 +8,22 @@ public class Entity : MonoBehaviour
     protected bool isDead;
     [SerializeField] protected int Health;
     [SerializeField] protected int MaxHealth;
+    [SerializeField] protected bool canTakeDamage;
+
     protected new Rigidbody2D rigidbody;
-    [SerializeField] protected float Oxygen;
-    protected float MaxOxygen;
-    // Start is called before the first frame update
+
+
+    [SerializeField]
+    protected Characters character;
+
     void Start()
     {
-        MaxOxygen = 1f;
         MaxHealth = 2;
-        Oxygen = 1f;
         Health = 2;
         isDead = false;
+        canTakeDamage = false;
     }
 
-    public float ReduceOxygen(float oxygen)
-    {
-        Oxygen -= oxygen;
-        return Oxygen;
-    }
     public bool Damage()
     {
         Health -= 1;
@@ -40,12 +38,12 @@ public class Entity : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log("Dead0");
         rigidbody.gravityScale = .8f; 
     }
 
     public bool Damage(int damage)
     {
+        if (!canTakeDamage) return false;
         Health -= damage;
         if (Health < 0)
         {

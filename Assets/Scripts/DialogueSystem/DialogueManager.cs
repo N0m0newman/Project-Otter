@@ -25,6 +25,8 @@ public class DialogueManager : MonoBehaviour
     Oslo oslo;
     private int index;
     Conversation activeConversation;
+    public static DialogueManager instance;
+    private NPC activeNPC;
     private void Start()
     {
         oslo = Oslo.instance;
@@ -34,8 +36,8 @@ public class DialogueManager : MonoBehaviour
             CharName = CharacterName.GetComponent<TextMeshProUGUI>();
             conversations = new List<Conversation>();
             generateConversationsFromFile();
-            StartDialogue("FrogDialogueFirstGreeting.txt");
         }
+        instance = this;
     }
 
     private void Update()
@@ -44,7 +46,7 @@ public class DialogueManager : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                if(DBody.text == activeConversation.GetDialogueLine(index).line) 
+                if(DBody.text == activeConversation.GetDialogueLine(index).line)
                 {
                     NextLine();
                 } else
@@ -56,12 +58,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(string name)
+    public void StartDialogue(string name, ConversationState state, NPC npc)
     {
         DialogueBox.SetActive(true);
         DialogueActive = true;
         index = 0;
-        activeConversation = GetConversationFromName(name);
+        activeConversation = GetConversationFromNameAndState(name, state);
         if(activeConversation == null)
         {
             Debug.LogError("Missing Conversation Data");
@@ -75,7 +77,8 @@ public class DialogueManager : MonoBehaviour
     {
         index = 0;
         DialogueBox.SetActive(false);
-        DialogueActive=false;
+        DialogueActive = false;
+        oslo.FinishInteraction(true);
     }
 
     public void ForceStopDialogue()
@@ -132,7 +135,7 @@ public class DialogueManager : MonoBehaviour
 
     void NextLine()
     {
-        if(index < activeConversation.GetFullConversation().Count -1 )
+        if(index < activeConversation.GetFullConversation().Count -1)
         {
             index++;
             DBody.text = String.Empty;
@@ -151,6 +154,30 @@ public class DialogueManager : MonoBehaviour
             if (conversation.ConversationName == name) return conversation;
         }
         return null;
+    }
+
+    private Conversation GetConversationFromNameAndState(string starter, ConversationState state)
+    {
+        string n = null;
+        switch (state)
+        {
+            case ConversationState.FIRSTGREETING:
+                n = starter + "FirstGreeting.txt";
+                break;
+            case ConversationState.RETURNGREETING1:
+                n = starter + "ReturnGreeting1.txt";
+                break;
+            case ConversationState.RETURNGREETING2:
+                n = starter + "ReturnGreeting2.txt";
+                break;
+            case ConversationState.COMPLETEDPUZZLE:
+                n = starter + "CompletedPuzzle.txt";
+                break;
+            case ConversationState.COMPLETEDCOLLECTIBLE:
+                n = starter + "CompletedCollectible.txt";
+                break;
+        }
+        return GetConversationFromName(n);
     }
 
 }
