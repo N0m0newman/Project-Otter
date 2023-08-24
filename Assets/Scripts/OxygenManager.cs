@@ -5,14 +5,18 @@ using UnityEngine;
 public class OxygenManager : MonoBehaviour
 {
     [SerializeField]
-    private float timeRemaing = 2f;
+    private float timeRemaing = .5f;
     [SerializeField]
-    private float OxygenLength = 2f;
+    private float OxygenLength = .5f;
 
     [SerializeField] 
     private float Oxygen;
     [SerializeField]
     private float MaxOxygen;
+    [SerializeField]
+    private float SlowTake = .01f;
+    [SerializeField]
+    private float FastTake = .02f;
 
     public bool TakeOxygen = false;
     // Update is called once per frame
@@ -28,17 +32,17 @@ public class OxygenManager : MonoBehaviour
                 if(Oslo.instance.isFast)
                 {
                     timeRemaing = OxygenLength;
-                    if(ReduceOxygen(0.02f) <= 0)
+                    if(ReduceOxygen(FastTake) <= 0)
                     {
-                        Oslo.instance.Damage();
+                        Oslo.instance.ApplyDamage(1);
                     } 
                     
                 } else
                 {
                     timeRemaing = OxygenLength;
-                    if(ReduceOxygen(0.01f) <= 0)
+                    if(ReduceOxygen(SlowTake) <= 0)
                     {
-                        Oslo.instance.Damage();
+                        Oslo.instance.ApplyDamage(1);
                     }
                 }
                 

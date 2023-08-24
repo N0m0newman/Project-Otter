@@ -16,9 +16,4 @@ public class FreddieFrog : NPC
         base.InteractObject();
         dm.StartDialogue(DialogueFileStarter, conversationState, this);
     }
-
-    void Update()
-    {
-        
-    }
 }
