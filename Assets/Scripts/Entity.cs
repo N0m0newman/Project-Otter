@@ -42,7 +42,7 @@ public class Entity : MonoBehaviour
         rigidbody.gravityScale = .8f; 
     }
 
-    public bool ApplyDamage(int damage)
+    public virtual bool ApplyDamage(int damage)
     {
         if (!canTakeDamage) return false;
         Health -= damage;
