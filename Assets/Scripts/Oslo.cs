@@ -79,11 +79,7 @@ public class Oslo : Entity
             {
                 timeBetweenAttacks -= Time.deltaTime;
             }
-        }      
-        if(Input.GetMouseButtonDown(1))
-        {
-            ApplyDamage(1);
-        }
+        }              
     }
 
     public void ToggleBackpack()
