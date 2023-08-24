@@ -164,6 +164,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6888656298d2b3e4d953fa69e871b890, type: 3}
   - {fileID: 8300000, guid: 3fdd7269fbbe35e4db334f60afa43c64, type: 3}
   - {fileID: 8300000, guid: 36933b5d26f7dc44ab7aa3454c2a0ecc, type: 3}
+  HealthBar: {fileID: 0}
+  HeartPrefab: {fileID: 4466670168647196196, guid: 10bf5e59449f4664d98c052c4c5ce58f, type: 3}
 --- !u!50 &1410782328394532063
 Rigidbody2D:
   serializedVersion: 4
@@ -321,11 +323,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeRemaing: 0.5
   OxygenLength: 0.5
-  Oxygen: 1
-  MaxOxygen: 1
-  SlowTake: 0.01
-  FastTake: 0.02
+  Oxygen: 100
+  MaxOxygen: 100
+  SlowTake: 0.4
+  FastTake: 0.8
   TakeOxygen: 1
+  RegenerateOxygen: 0
+  oxygenBar: {fileID: 0}
 --- !u!1 &2582009356267079612
 GameObject:
   m_ObjectHideFlags: 0

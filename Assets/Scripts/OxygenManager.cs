@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OxygenManager : MonoBehaviour
 {
@@ -14,11 +15,20 @@ public class OxygenManager : MonoBehaviour
     [SerializeField]
     private float MaxOxygen;
     [SerializeField]
-    private float SlowTake = .01f;
+    private float SlowTake = .1f;
     [SerializeField]
-    private float FastTake = .02f;
+    private float FastTake = .2f;
 
     public bool TakeOxygen = false;
+    public bool RegenerateOxygen = false;
+
+    public GameObject oxygenBar;
+    private Slider slider;
+    private void Start()
+    {
+        slider = oxygenBar.GetComponent<Slider>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,12 +57,17 @@ public class OxygenManager : MonoBehaviour
                 }
                 
             }
+        } 
+        if(RegenerateOxygen)
+        {
+
         }
     }
 
     public float ReduceOxygen(float oxygen)
     {
         Oxygen -= oxygen;
+        slider.value = Oxygen;
         return Oxygen;
     }
 }

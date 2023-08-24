@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -23,15 +24,24 @@ public class Oslo : Entity
     private bool reacting = false;
 
     private GameObject backpack;
+    [SerializeField]
+    private GameObject HealthBar;
+    [SerializeField]
+    private GameObject HeartPrefab;
 
-    void Start()
+    void Awake()
     {
         name = "Oslo";
-        Health = 2;
-        MaxHealth = 2;
+        Health = 4;
+        MaxHealth = 4;
         rigidbody = GetComponent<Rigidbody2D>();
         om = GetComponent<OxygenManager>();
         character = Characters.OSLO;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(SyncHealthAmount());
         instance = this;
     }
 
@@ -58,17 +68,21 @@ public class Oslo : Entity
 
         //Check if he should sprint
         isFast = Input.GetButton("Sprint");
-        
+        //may be broken
         if(timeBetweenAttacks <= 0)
         {
             if (Input.GetButtonDown("Fire1") && canAttack)
             {   
                 timeBetweenAttacks = attackCooldown;
-                Attack();
+                
             }else
             {
                 timeBetweenAttacks -= Time.deltaTime;
             }
+        }      
+        if(Input.GetMouseButtonDown(1))
+        {
+            ApplyDamage(1);
         }
     }
 
@@ -137,5 +151,55 @@ public class Oslo : Entity
         canAttack = true;
         CouldInteract = reinteractable;
     }
-     
+
+    IEnumerator SyncHealthAmount()
+    {
+        //work out how many hearts we will need
+        int hearts = MaxHealth / 2;
+        //destroy all hearts from parent
+        foreach(Transform child in HealthBar.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        //build new hearts, apply to master object
+        for(int i = 0; i < hearts; i++)
+        {
+            GameObject newHeart = Instantiate(HeartPrefab, HealthBar.transform);
+        }
+        //DONT FUYCKING REMOVE THIS LINE OR I WILL CRY AND SHIT MYSELF.
+        yield return new WaitForEndOfFrame();
+        //figure out how many hearts to destroy
+        int healthToRemove = MaxHealth - Health;
+        //if full health dont, cancel out
+        if (healthToRemove == 0) yield return null;
+        int halfHearts;
+        int FullRemoveHearts = Math.DivRem(healthToRemove, 2, out halfHearts);
+        //get last heart out of all
+        int lastheart = HealthBar.transform.childCount - 1;
+        //remove full hearts
+        for (int i = 0; i < FullRemoveHearts; i++)
+        {
+            Heart heart = (lastheart == 0) ? HealthBar.transform.GetChild(0).GetComponent<Heart>() : HealthBar.transform.GetChild(lastheart - i).GetComponent<Heart>();
+            heart.UpdateHealth(Heart.HeartStates.EMPTY);
+            yield return new WaitForEndOfFrame();
+        }
+        //calculate half hearts
+        for (int i = 0; i < halfHearts; i++)
+        {
+            //get last full heart
+            int b = lastheart - FullRemoveHearts;
+            Heart heart = (b == 0) ? HealthBar.transform.GetChild(0).GetComponent<Heart>() : HealthBar.transform.GetChild(b - i).GetComponent<Heart>();
+            heart.UpdateHealth(Heart.HeartStates.HALF);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
+    }
+
+    public override bool ApplyDamage(int damage)
+    {
+        bool b = base.ApplyDamage(damage);
+        StartCoroutine(SyncHealthAmount());
+        return b;
+    }
+
 }
