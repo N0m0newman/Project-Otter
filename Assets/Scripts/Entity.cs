@@ -13,10 +13,12 @@ public class Entity : MonoBehaviour
 
     [SerializeField]
     protected int attackDamage;
+    [SerializeField]
     protected bool canAttack = false;
     [SerializeField]
     protected Transform attackPosition;
-    protected float timeBetweenAttacks = 0f;
+    [SerializeField]
+    protected bool attackReady = true;
     protected float attackCooldown = 2f;
     protected float attackRange = 5f;
     [SerializeField]
@@ -35,7 +37,7 @@ public class Entity : MonoBehaviour
         canTakeDamage = false;
     }
 
-    public virtual void Attack() { }
+    public virtual IEnumerator Attack() { return null; }
 
     public virtual void Die()
     {
