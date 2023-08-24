@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Oslo : Entity
@@ -19,6 +20,10 @@ public class Oslo : Entity
     public Sprite[] reactionSprites;
     [SerializeField]
     private AudioClip[] reactionSounds;
+    private bool reacting = false;
+
+    private GameObject backpack;
+
     void Start()
     {
         name = "Oslo";
@@ -46,9 +51,39 @@ public class Oslo : Entity
                 movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
         }
-        if(Input.GetButtonDown("Interact") && CouldInteract && interactable != null)
+        if (Input.GetButtonDown("Interact") && CouldInteract && interactable != null)
         {
             OsloStartInteraction();
+        }
+
+        //Check if he should sprint
+        isFast = Input.GetButton("Sprint");
+        
+        if(timeBetweenAttacks <= 0)
+        {
+            if (Input.GetButtonDown("Fire1") && canAttack)
+            {   
+                timeBetweenAttacks = attackCooldown;
+                Attack();
+            }else
+            {
+                timeBetweenAttacks -= Time.deltaTime;
+            }
+        }
+    }
+
+    public void ToggleBackpack()
+    {
+        
+    }
+
+    public override void Attack()
+    {
+        base.Attack();
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, damageableMask);
+        for(int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            enemiesToDamage[i].GetComponent<Entity>().ApplyDamage(attackDamage);
         }
     }
 
@@ -56,16 +91,27 @@ public class Oslo : Entity
     {
         if (movementDirection != null && rigidbody != null && canMove)
         {
-            rigidbody.velocity = movementDirection * movementSpeed * Time.deltaTime;
+            rigidbody.velocity = (isFast) ? movementDirection * (movementSpeed * 2) * Time.deltaTime : movementDirection * movementSpeed * Time.deltaTime; 
         } 
     }
 
     public void React(int index)
     {
-        
+        StartCoroutine(ReactionStart(index));
     }
 
-    public void ClearReaction()
+    private IEnumerator ReactionStart(int index)
+    {
+        if (reacting) yield return new WaitForSeconds(.1f);
+        reacting = true;
+        reactionSprite.sprite = reactionSprites[index];
+        new WaitForSeconds(1);
+        reactionSprite.sprite = null;
+        reacting = false;
+        yield return new WaitForSeconds(.1f);
+    }
+
+    public void ForceClearReaction()
     {
         reactionSprite.sprite = null;
     }
@@ -77,6 +123,7 @@ public class Oslo : Entity
         canMove = false;
         interacting = true;
         CouldInteract = false;
+        canAttack = false;
         if (interactable != null) interactable.InteractObject(); 
     }
 
@@ -87,6 +134,7 @@ public class Oslo : Entity
         canMove = true;
         interactable = null;
         interacting = false;
+        canAttack = true;
         CouldInteract = reinteractable;
     }
      
