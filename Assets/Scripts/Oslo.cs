@@ -37,6 +37,8 @@ public class Oslo : Entity
         rigidbody = GetComponent<Rigidbody2D>();
         om = GetComponent<OxygenManager>();
         character = Characters.OSLO;
+        attackReady = true;
+        canAttack = true;
     }
 
     private void Start()
@@ -68,18 +70,13 @@ public class Oslo : Entity
 
         //Check if he should sprint
         isFast = Input.GetButton("Sprint");
-        //may be broken
-        if(timeBetweenAttacks <= 0)
+
+        if (attackReady && Input.GetButtonDown("Fire1") && canAttack)
         {
-            if (Input.GetButtonDown("Fire1") && canAttack)
-            {   
-                timeBetweenAttacks = attackCooldown;
-                
-            }else
-            {
-                timeBetweenAttacks -= Time.deltaTime;
-            }
-        }              
+            attackReady = false;
+            Debug.Log("Attack started!");
+            StartCoroutine(Attack());
+        }
     }
 
     public void ToggleBackpack()
@@ -87,14 +84,17 @@ public class Oslo : Entity
         
     }
 
-    public override void Attack()
+    public override IEnumerator Attack()
     {
-        base.Attack();
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, damageableMask);
         for(int i = 0; i < enemiesToDamage.Length; i++)
         {
             enemiesToDamage[i].GetComponent<Entity>().ApplyDamage(attackDamage);
         }
+        Debug.Log("Started cooldown");
+        yield return new WaitForSeconds(attackCooldown);
+        Debug.Log("Attack finished");
+        attackReady = true;
     }
 
     private void FixedUpdate()
@@ -134,6 +134,7 @@ public class Oslo : Entity
         interacting = true;
         CouldInteract = false;
         canAttack = false;
+        rigidbody.velocity = Vector3.zero;
         if (interactable != null) interactable.InteractObject(); 
     }
 
