@@ -70,7 +70,6 @@ public class Oslo : Entity
 
         //Check if he should sprint
         isFast = Input.GetButton("Sprint");
-
         if (attackReady && Input.GetButtonDown("Fire1") && canAttack)
         {
             attackReady = false;
