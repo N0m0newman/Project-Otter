@@ -32,7 +32,7 @@ public class OxygenManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TakeOxygen)
+        if (TakeOxygen && !RegenerateOxygen)
         {
             if (timeRemaing > 0)
             {
@@ -62,6 +62,11 @@ public class OxygenManager : MonoBehaviour
         {
 
         }
+    }
+
+    void StartRegenOxygen()
+    {
+
     }
 
     public float ReduceOxygen(float oxygen)
