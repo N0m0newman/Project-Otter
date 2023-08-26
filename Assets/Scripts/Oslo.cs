@@ -5,7 +5,7 @@ using UnityEngine;
 public class Oslo : Entity
 { 
     private Vector2 movementDirection;
-    private bool isUnderwater = true;
+    public bool isUnderwater = true;
     public bool isFast = false;
     public bool canMove = true;
 
@@ -32,7 +32,7 @@ public class Oslo : Entity
     private GameObject SlaveObject;
 
     [SerializeField]
-    private Animator animator;
+    public Animator animator;
 
     void Awake()
     {
@@ -77,6 +77,7 @@ public class Oslo : Entity
         isFast = Input.GetButton("Sprint");
         if (attackReady && Input.GetButtonDown("Fire1") && canAttack)
         {
+            animator.SetBool("isAttacking", true);
             attackReady = false;
             StartCoroutine(Attack());
         }
@@ -95,6 +96,7 @@ public class Oslo : Entity
             enemiesToDamage[i].GetComponent<Entity>().ApplyDamage(attackDamage);
         }
         yield return new WaitForSeconds(attackCooldown);
+        animator.SetBool("isAttacking", false);
         attackReady = true;
     }
 
@@ -103,15 +105,7 @@ public class Oslo : Entity
         if (movementDirection != null && rigidbody != null && canMove)
         {
             rigidbody.velocity = (isFast) ? movementDirection * (movementSpeed * 2) * Time.deltaTime : movementDirection * movementSpeed * Time.deltaTime;
-            //Flip object rotation
-            if (movementDirection.x >= 0.01f)
-            { 
-                SlaveObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-            else if (movementDirection.x <= -0.01f)
-            {
-                SlaveObject.transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
+            CheckAnimations();
         } 
     }
 
@@ -179,6 +173,7 @@ public class Oslo : Entity
         int healthToRemove = MaxHealth - Health;
         //if full health dont, cancel out
         if (healthToRemove == 0) yield return null;
+        if(isDead) yield return null;
         int halfHearts;
         int FullRemoveHearts = Math.DivRem(healthToRemove, 2, out halfHearts);
         //get last heart out of all
@@ -200,6 +195,40 @@ public class Oslo : Entity
             yield return new WaitForEndOfFrame();
         }
         yield return null;
+    }
+
+    void CheckAnimations()
+    {
+        if(movementDirection.x >= 0.01f || movementDirection.x <= -0.01f || movementDirection.y >= 0.01f || movementDirection.y <= -0.01f)
+        {
+            animator.SetBool("isMoving", true);
+        } else
+        {
+            animator.SetBool("isMoving", false);
+        }
+        if (movementDirection.x >= 0.01f)
+        {
+            //up right
+            if (movementDirection.y >= 0.01f) {
+                SlaveObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,45));
+            }
+            //down right
+            else if(movementDirection.y <= -0.01f)
+            {
+                SlaveObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45));
+            }
+            //down
+            else
+            {
+                SlaveObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+                SlaveObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+        }
+        //invert
+        if (movementDirection.x <= -0.01f)
+        {
+            SlaveObject.transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
     }
 
     public override bool ApplyDamage(int damage)

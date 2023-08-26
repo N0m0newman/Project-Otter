@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,10 @@ public class OxygenManager : MonoBehaviour
                 timeRemaing -= Time.deltaTime;
             } else
             {
+                if(RegenerateOxygen)
+                {
+                    IncreaseOxygen(3);
+                }
                 if(Oslo.instance.isFast)
                 {
                     timeRemaing = OxygenLength;
@@ -58,10 +63,28 @@ public class OxygenManager : MonoBehaviour
                 
             }
         } 
-        if(RegenerateOxygen)
-        {
+    }
 
-        }
+    public void StartOxygenRegen()
+    {
+        RegenerateOxygen = true;
+        Oslo.instance.isUnderwater = false;
+        Oslo.instance.animator.SetBool("isRegeneratingOxygen", true);
+    }
+
+    public void EndOxygenRegen()
+    {
+        RegenerateOxygen = false;
+        Oslo.instance.isUnderwater = true;
+        Oslo.instance.animator.SetBool("isRegeneratingOxygen", false);
+    }
+
+    public float IncreaseOxygen(float oxygen)
+    {
+        Oxygen += oxygen;
+        if(Oxygen > MaxOxygen) Oxygen = MaxOxygen;
+        slider.value = Oxygen;
+        return Oxygen;
     }
 
     public float ReduceOxygen(float oxygen)

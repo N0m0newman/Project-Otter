@@ -94,6 +94,7 @@ MonoBehaviour:
     m_Bits: 0
   movementSpeed: 80
   character: 0
+  isUnderwater: 1
   isFast: 0
   canMove: 1
   om: {fileID: 6500277836400608622}
@@ -117,7 +118,7 @@ MonoBehaviour:
   HealthBar: {fileID: 0}
   HeartPrefab: {fileID: 4466670168647196196, guid: 10bf5e59449f4664d98c052c4c5ce58f, type: 3}
   SlaveObject: {fileID: 8918623892760527162}
-  animator: {fileID: 0}
+  animator: {fileID: 6765541119728753471}
 --- !u!50 &1410782328394532063
 Rigidbody2D:
   serializedVersion: 4
