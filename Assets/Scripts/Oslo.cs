@@ -28,6 +28,12 @@ public class Oslo : Entity
     [SerializeField]
     private GameObject HeartPrefab;
 
+    [SerializeField]
+    private GameObject SlaveObject;
+
+    [SerializeField]
+    private Animator animator;
+
     void Awake()
     {
         name = "Oslo";
@@ -72,7 +78,6 @@ public class Oslo : Entity
         if (attackReady && Input.GetButtonDown("Fire1") && canAttack)
         {
             attackReady = false;
-            Debug.Log("Attack started!");
             StartCoroutine(Attack());
         }
     }
@@ -89,9 +94,7 @@ public class Oslo : Entity
         {
             enemiesToDamage[i].GetComponent<Entity>().ApplyDamage(attackDamage);
         }
-        Debug.Log("Started cooldown");
         yield return new WaitForSeconds(attackCooldown);
-        Debug.Log("Attack finished");
         attackReady = true;
     }
 
@@ -100,13 +103,14 @@ public class Oslo : Entity
         if (movementDirection != null && rigidbody != null && canMove)
         {
             rigidbody.velocity = (isFast) ? movementDirection * (movementSpeed * 2) * Time.deltaTime : movementDirection * movementSpeed * Time.deltaTime;
+            //Flip object rotation
             if (movementDirection.x >= 0.01f)
-            {
-                transform.rotation = Quaternion.Euler(0, 180f, 0);
+            { 
+                SlaveObject.transform.localScale = new Vector3(1f, 1f, 1f);
             }
             else if (movementDirection.x <= -0.01f)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                SlaveObject.transform.localScale = new Vector3(-1f, 1f, 1f);
             }
         } 
     }
