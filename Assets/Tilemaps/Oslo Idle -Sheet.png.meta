@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d2d2278f5a6ecc488c089994c72e8d8
+guid: 08a1cad4f95c1754a84970e814c85a91
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Oslo Swim Animation_0
+      name: Oslo Idle -Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5461596fe588f6d41acf560b785ecf6c
-      internalID: -321304883
+      spriteID: 3a5fd8ac066afae45929b1302490ce29
+      internalID: 1531386068
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_1
+      name: Oslo Idle -Sheet_1
       rect:
         serializedVersion: 2
         x: 256
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7979289a8a7bda4fa0430bba11483e9
-      internalID: -24010468
+      spriteID: e33bed4064decd14d8680d142eb99a71
+      internalID: -354086165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_2
+      name: Oslo Idle -Sheet_2
       rect:
         serializedVersion: 2
         x: 512
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a22c700f628052c4dbd728670ab07193
-      internalID: -83632171
+      spriteID: 78fd871e1942de6449354c1fa8923ac5
+      internalID: -1630469036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_3
+      name: Oslo Idle -Sheet_3
       rect:
         serializedVersion: 2
         x: 768
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8551fc7bff19be24db0bb0dda484dcff
-      internalID: -955969052
+      spriteID: 634f352710388b742887ca59e31e9474
+      internalID: -466364605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_4
+      name: Oslo Idle -Sheet_4
       rect:
         serializedVersion: 2
         x: 1024
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a051ac83b28f7042b7c7257de963217
-      internalID: -2100755594
+      spriteID: 384086301e5d01746a6491a457da5081
+      internalID: -1249978627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_5
+      name: Oslo Idle -Sheet_5
       rect:
         serializedVersion: 2
         x: 1280
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 795bac9164c094445aeb9c3cf311125f
-      internalID: -792756861
+      spriteID: 0122cb1c60d6cbd4c9281b6e7d967998
+      internalID: 887905165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_6
+      name: Oslo Idle -Sheet_6
       rect:
         serializedVersion: 2
         x: 1536
@@ -245,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d55bca79b0884448cfa74dfe1425ca
-      internalID: 555842438
+      spriteID: 470836202c22e7d44813ca416e5cc1d5
+      internalID: -1477650556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_7
+      name: Oslo Idle -Sheet_7
       rect:
         serializedVersion: 2
         x: 1792
@@ -266,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 984c872276f0cfc49b01cad4fb15d950
-      internalID: -285688056
+      spriteID: f61efcf0a13d9c841b02cf306b297ba0
+      internalID: -1165449102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_8
+      name: Oslo Idle -Sheet_8
       rect:
         serializedVersion: 2
         x: 2048
@@ -287,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64d239c3d98884741948542f6681f895
-      internalID: -960268600
+      spriteID: 5eff1a8b9f7c5f94192066a720604d94
+      internalID: 918008279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_9
+      name: Oslo Idle -Sheet_9
       rect:
         serializedVersion: 2
         x: 2304
@@ -308,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a6665f4c3e93154fa62a8d839be769b
-      internalID: 1056201817
+      spriteID: 8b0d34f4691ed03408a5f3b21f9d384f
+      internalID: -1764977777
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Oslo Swim Animation_10
+      name: Oslo Idle -Sheet_10
       rect:
         serializedVersion: 2
         x: 2560
@@ -329,71 +329,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af94693e5e27ba54da55fca471d94b28
-      internalID: 122321049
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Oslo Swim Animation_11
-      rect:
-        serializedVersion: 2
-        x: 2816
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc9e717cadfb6cb488029b0d59722b53
-      internalID: -1873071792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Oslo Swim Animation_12
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a6424a8eb349614e952b6666faa193c
-      internalID: 1380055909
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Oslo Swim Animation_13
-      rect:
-        serializedVersion: 2
-        x: 3328
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 176764f30582cf245a10b60a87a4afd7
-      internalID: 1218393028
+      spriteID: 5e8676bd3cffc7c4fbc8ade0d18513ad
+      internalID: -2103713892
       vertices: []
       indices: 
       edges: []
@@ -409,20 +346,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Oslo Swim Animation_0: -321304883
-      Oslo Swim Animation_1: -24010468
-      Oslo Swim Animation_10: 122321049
-      Oslo Swim Animation_11: -1873071792
-      Oslo Swim Animation_12: 1380055909
-      Oslo Swim Animation_13: 1218393028
-      Oslo Swim Animation_2: -83632171
-      Oslo Swim Animation_3: -955969052
-      Oslo Swim Animation_4: -2100755594
-      Oslo Swim Animation_5: -792756861
-      Oslo Swim Animation_6: 555842438
-      Oslo Swim Animation_7: -285688056
-      Oslo Swim Animation_8: -960268600
-      Oslo Swim Animation_9: 1056201817
+      Oslo Idle -Sheet_0: 1531386068
+      Oslo Idle -Sheet_1: -354086165
+      Oslo Idle -Sheet_10: -2103713892
+      Oslo Idle -Sheet_2: -1630469036
+      Oslo Idle -Sheet_3: -466364605
+      Oslo Idle -Sheet_4: -1249978627
+      Oslo Idle -Sheet_5: 887905165
+      Oslo Idle -Sheet_6: -1477650556
+      Oslo Idle -Sheet_7: -1165449102
+      Oslo Idle -Sheet_8: 918008279
+      Oslo Idle -Sheet_9: -1764977777
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
