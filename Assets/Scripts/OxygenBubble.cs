@@ -6,11 +6,17 @@ public class OxygenBubble : MonoBehaviour
 {
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Oslo.instance
+        if(collision.tag == "Oslo")
+        {
+            Oslo.instance.om.StartOxygenRegen();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        
+        if (other.tag == "Oslo")
+        {
+            Oslo.instance.om.EndOxygenRegen();
+        }
     }
 }
