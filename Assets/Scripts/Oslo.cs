@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Oslo : Entity
-{
-    [SerializeField] float movementSpeed = 2f;
+{ 
     private Vector2 movementDirection;
     private bool isUnderwater = true;
     public bool isFast = false;
@@ -70,7 +69,6 @@ public class Oslo : Entity
 
         //Check if he should sprint
         isFast = Input.GetButton("Sprint");
-
         if (attackReady && Input.GetButtonDown("Fire1") && canAttack)
         {
             attackReady = false;
@@ -101,7 +99,15 @@ public class Oslo : Entity
     {
         if (movementDirection != null && rigidbody != null && canMove)
         {
-            rigidbody.velocity = (isFast) ? movementDirection * (movementSpeed * 2) * Time.deltaTime : movementDirection * movementSpeed * Time.deltaTime; 
+            rigidbody.velocity = (isFast) ? movementDirection * (movementSpeed * 2) * Time.deltaTime : movementDirection * movementSpeed * Time.deltaTime;
+            if (movementDirection.x >= 0.01f)
+            {
+                transform.rotation = Quaternion.Euler(0, 180f, 0);
+            }
+            else if (movementDirection.x <= -0.01f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         } 
     }
 

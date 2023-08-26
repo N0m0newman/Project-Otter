@@ -20,9 +20,11 @@ public class Entity : MonoBehaviour
     [SerializeField]
     protected bool attackReady = true;
     protected float attackCooldown = 2f;
+    [SerializeField]
     protected float attackRange = 5f;
     [SerializeField]
     protected LayerMask damageableMask;
+    [SerializeField] protected float movementSpeed = 2f;
 
     protected new Rigidbody2D rigidbody;
 
@@ -38,6 +40,8 @@ public class Entity : MonoBehaviour
     }
 
     public virtual IEnumerator Attack() { return null; }
+
+    public virtual void Move() { }
 
     public virtual void Die()
     {

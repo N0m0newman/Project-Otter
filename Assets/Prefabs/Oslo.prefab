@@ -138,12 +138,14 @@ MonoBehaviour:
   MaxHealth: 0
   canTakeDamage: 1
   attackDamage: 0
-  attackPosition: {fileID: 0}
+  canAttack: 1
+  attackPosition: {fileID: 3526186880908053330}
+  attackReady: 1
   damageableMask:
     serializedVersion: 2
     m_Bits: 0
-  character: 0
   movementSpeed: 80
+  character: 0
   isFast: 0
   canMove: 1
   om: {fileID: 6500277836400608622}
